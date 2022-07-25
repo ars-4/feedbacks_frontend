@@ -13,7 +13,7 @@
                 <label for="userpasswordfield">Password</label>
                 <br>
                 <div class="formfield">
-                    <input type="text" id="userpasswordfield">
+                    <input type="text" id="userpasswordfield" v-model="userpasswordfield">
                     <span></span>
                 </div>
                 <br>
@@ -21,6 +21,7 @@
                 <a class="btn btn-secondary">Sign up</a>
                 <br>
             </div>
+            <p><a style="color:green">{{ Success }}</a> <a style="color:red">{{ Error }}</a></p>
         </div>
     </div>
 </template>
@@ -30,17 +31,58 @@ import { Vue, Options } from 'vue-class-component'
 
 @Options({
     data() {
-    return {
-      usernamefield: "",
-    };
-  },
+        return {
+            usernamefield: "",
+            userpasswordfield: "",
+            Success: "",
+            Error: ""
+        };
+    },
     methods: {
         login_user: function () {
-            let usernamefield = document.getElementById("username");
-            alert(this.usernamefield);
-        }
+            let url = "https://feedbacks-backend.herokuapp.com/api/auth/login/";
+            let body = {
+                "username": this.usernamefield,
+                "password": this.userpasswordfield
+            }
+
+            fetch(
+                url, {
+                method: 'POST',
+                headers: {
+                    "accept": "application/json",
+                    "Content-Type": "application/json; charset=utf8"
+                },
+                body: JSON.stringify(body)
+            }
+            ).then(
+                response => {
+                    return response.json()
+                }
+            ).then(
+                data => {
+                    if (data['error'] == 'true') {
+                        localStorage.setItem('status', 'loggedout');
+                        this.Error = data['message'];
+                    }
+                    else {
+                        let innerData = data['data'];
+                        localStorage.setItem('userusername', innerData['user']);
+                        localStorage.setItem('access', innerData['access']);
+                        localStorage.setItem('refresh', innerData['refresh']);
+                        localStorage.setItem('status', 'loggedin');
+                        this.Success = data['message'];
+                    }
+                }
+            ).catch(error => {
+                console.error(error);
+            })
+        },
+
+
     }
 })
+
 
 
 
@@ -84,10 +126,12 @@ input {
     cursor: pointer;
     margin: 3px;
 }
+
 .btn-primary {
     background: #42b983;
     color: #fff;
 }
+
 .btn-secondary {
     background-color: #c3c3c3;
 }

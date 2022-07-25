@@ -2,11 +2,30 @@
     <div class="main">
         <div class="Card">
             <h1>You are logging out</h1>
-            <button class="btn btn-danger" onclick="">Confirm</button>
+            <button class="btn btn-danger" @click="logout_user">Confirm</button>
             <router-link class="btn btn-primary" to="/Home">Cancel</router-link>
         </div>
     </div>
 </template>
+
+<script lang="ts">
+
+    import {Vue, Options} from 'vue-class-component'
+
+    @Options({
+      methods: {
+        logout_user: function() {
+            localStorage.removeItem('access')
+            localStorage.removeItem('refresh')
+            localStorage.removeItem('userusername')
+            localStorage.setItem('status', 'false')
+        }
+      }  
+    })
+
+    export default class Logout extends Vue { }
+
+</script>
 
 <style>
 .main {
