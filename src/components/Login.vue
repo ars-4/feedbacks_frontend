@@ -72,6 +72,7 @@ import { Vue, Options } from 'vue-class-component'
                         localStorage.setItem('refresh', innerData['refresh']);
                         localStorage.setItem('status', 'loggedin');
                         this.Success = data['message'];
+                        setTimeout(this.$router.push('/'), 2000);
                     }
                 }
             ).catch(error => {
