@@ -2,8 +2,8 @@
     <div>
         <h3>Your websites</h3>
         <button class="btn btn-primary" @click="fetch_websites">Get Websites</button>
-        <table>
-            <tr class="tr">
+        <table class="wtable">
+            <tr class="wtr">
                 <th class="wname">Website Name</th>
                 <th class="wemail">Website Email</th>
                 <th class="wurl">Website Url</th>
@@ -76,6 +76,7 @@ import { Vue, Options } from 'vue-class-component'
                     this.refresh_user_token()
                 }
                 else {
+                    this.websites_country = [];
                     let Obj = {
                         name: "",
                         email: "",
@@ -118,12 +119,12 @@ export default class websites extends Vue { }
     font-size: 16px;
 }
 
-table {
+.wtable {
     border: 3px solid #242424;
 }
 
 th,
-td {
+.wemail, .wname, .wurl {
     border: 3px solid #242424;
 }
 

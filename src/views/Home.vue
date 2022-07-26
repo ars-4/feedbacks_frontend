@@ -1,6 +1,12 @@
 <template>
   <div class="home">
-    <websites></websites>
+    <table>
+      <tr>
+        <td>
+          <websites></websites>
+        </td>
+      </tr>
+    </table>
   </div>
 </template>
 
