@@ -1,12 +1,46 @@
 <template>
   <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
   <div id="nav">
-    <router-link to="/">Home</router-link> |
+    <router-link @click="check_user_login" to="/">Home</router-link> |
     <router-link to="/about">About</router-link> |
-    <router-link to="/logout">Logout</router-link>
+    <router-link @click="check_user_logout" to="/logout">Logout</router-link>
   </div>
-  <router-view/>
+  <router-view />
 </template>
+
+<script>
+
+import { Options, Vue } from 'vue-class-component'
+
+@Options({
+  methods: {
+    check_user_login: function() {
+      let status = localStorage.getItem('status');
+      if(status == 'loggedin') {
+        this.$router.push('/');
+      }
+      else {
+        this.$router.push('/auth');
+      }
+    },
+    check_user_logout: function() {
+      let status = localStorage.getItem('status');
+      if(status == 'loggedin') {
+        this.$router.push('/logout');
+      }
+      else {
+        this.$router.push('/auth');
+      }
+    }
+  },
+  beforeMount() {
+    this.check_user_login()
+  }
+})
+
+export default class App extends Vue { }
+
+</script>
 
 <style>
 #app {

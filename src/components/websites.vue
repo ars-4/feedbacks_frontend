@@ -1,0 +1,138 @@
+<template>
+    <div>
+        <h3>Your websites</h3>
+        <button class="btn btn-primary" @click="fetch_websites">Get Websites</button>
+        <table>
+            <tr class="tr">
+                <th class="wname">Website Name</th>
+                <th class="wemail">Website Email</th>
+                <th class="wurl">Website Url</th>
+            </tr>
+            <tr class="tr" v-for="ele in websites_country">
+                <td class="wname" v-html="ele.name"></td>
+                <td class="wemail" v-html="ele.email"></td>
+                <td class="wurl"><a href="" v-html="ele.url"></a></td>
+            </tr>
+        </table>
+    </div>
+</template>
+
+<script lang="ts">
+
+import { Vue, Options } from 'vue-class-component'
+
+@Options({
+    data() {
+        return {
+            websites_country: []
+        }
+    },
+
+    methods: {
+        refresh_user_token: () => {
+            let refresh_url = "https://feedbacks-backend.herokuapp.com/api/auth/refresh/"
+            let refresh_token = localStorage.getItem('refresh');
+            let body = {
+                "refresh": refresh_token,
+            }
+            fetch(refresh_url, {
+                method: "POST",
+                headers: {
+                    'accept': 'application/json',
+                    'Content-Type': "application/json; charset=utf8",
+                },
+                body: JSON.stringify(body),
+            }).then(response => {
+                return response.json()
+            }).then(data => {
+                localStorage.removeItem('refresh');
+                localStorage.setItem('refresh', data['refresh']);
+                localStorage.removeItem('access');
+                localStorage.setItem('access', data['access']);
+                console.log("Changed");
+            }).then(
+                // () => {
+                //     setTimeout(this.fetch_websites(), 6000)
+                // }
+            ).catch(error => {
+                console.error(error)
+            })
+        },
+        fetch_websites: function () {
+            let url = "https://feedbacks-backend.herokuapp.com/api/websites/"
+            let access_token = localStorage.getItem('access');
+            fetch(url, {
+                method: "GET",
+                headers: {
+                    "accept": "application/json",
+                    "Content-Type": "application/json; charset=utf8",
+                    "Authorization": "JWT " + access_token,
+                },
+            }).then(
+                response => { return response.json() }
+            ).then(data => {
+                if (data['code']) {
+                    console.log("Token Invalid")
+                    this.refresh_user_token()
+                }
+                else {
+                    let Obj = {
+                        name: "",
+                        email: "",
+                        url: ""
+                    }
+                    for (let i = 0; i <= data.length; i++) {
+                        let email = data[i]['email'];
+                        let website_name = data[i]['website_name'];
+                        let website_url = data[i]['website_url'];
+                        Obj.name = website_name
+                        Obj.email = email
+                        Obj.url = website_url
+                        this.websites_country.push(Obj);
+                    }
+                }
+            }).catch(error => {
+                console.error(error)
+                this.refresh_user_token
+            })
+        }// FUNCTION
+
+    }, // METHODS
+
+    beforeMount() {
+        this.fetch_websites();
+    }
+
+}) // OPTIONS
+
+export default class websites extends Vue { }
+
+</script>
+
+<style>
+
+.btn-primary {
+    color: #44aaee;
+    border: none;
+    padding: 20px;
+    font-size: 16px;
+}
+
+table {
+    border: 3px solid #242424;
+}
+
+th,
+td {
+    border: 3px solid #242424;
+}
+
+.wname {
+    width: 100px;
+}
+
+.wemail,
+.wurl {
+    width: 250px;
+}
+</style>

@@ -3,7 +3,7 @@
         <div class="Card">
             <h1>You are logging out</h1>
             <button class="btn btn-danger" @click="logout_user">Confirm</button>
-            <router-link class="btn btn-primary" to="/Home">Cancel</router-link>
+            <router-link class="btn btn-primary" to="/">Cancel</router-link>
         </div>
     </div>
 </template>
@@ -19,6 +19,7 @@
             localStorage.removeItem('refresh')
             localStorage.removeItem('userusername')
             localStorage.setItem('status', 'false')
+            this.$router.push('/auth')
         }
       }  
     })
