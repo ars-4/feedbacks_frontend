@@ -1,4 +1,4 @@
-<template class="backgroundVid">
+<template>
   <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
   <div id="nav">
     <router-link @click="check_user_login" to="/">Home</router-link> |
@@ -14,18 +14,18 @@ import { Options, Vue } from 'vue-class-component'
 
 @Options({
   methods: {
-    check_user_login: function() {
+    check_user_login: function () {
       let status = localStorage.getItem('status');
-      if(status == 'loggedin') {
+      if (status == 'loggedin') {
         this.$router.push('/');
       }
       else {
         this.$router.push('/auth');
       }
     },
-    check_user_logout: function() {
+    check_user_logout: function () {
       let status = localStorage.getItem('status');
-      if(status == 'loggedin') {
+      if (status == 'loggedin') {
         this.$router.push('/logout');
       }
       else {
@@ -43,12 +43,18 @@ export default class App extends Vue { }
 </script>
 
 <style>
+body {
+  overflow-x: hidden;
+  background-image: url('~@/assets/AstronautAndJellyfish.jpg');
+  background-size: cover;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #fff;
 }
 
 #nav {
@@ -57,10 +63,20 @@ export default class App extends Vue { }
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #fff;
+  text-decoration: none;
 }
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.btn, .btn-primary {
+  border-radius: 4px;
+  background-color: #42b983;
+  color: #242424 !important;
+  font-weight: bolder;
+  padding: 12px !important;
+  cursor: pointer;
 }
 </style>

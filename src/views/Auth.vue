@@ -1,15 +1,17 @@
 <template>
-    <table class="center">
-        <tr>
-            <td>
-                <login></login>
-            </td>
+    <div class="backVid">
+        <table class="center">
+            <tr>
+                <td>
+                    <login></login>
+                </td>
 
-            <td>
-                <Register></Register>
-            </td>
-        </tr>
-    </table>
+                <td>
+                    <Register></Register>
+                </td>
+            </tr>
+        </table>
+    </div>
 </template>
 
 <script lang="ts">
@@ -22,12 +24,12 @@ import Register from '@/components/Register.vue';
         Register
     },
     methods: {
-        user_check_login: function() {
+        user_check_login: function () {
             let status = localStorage.getItem('status');
-            if(status == 'loggedin') {
+            if (status == 'loggedin') {
                 this.$router.push('/')
             }
-            else{
+            else {
                 this.$router.push('/auth')
             }
         }
@@ -44,4 +46,6 @@ export default class Auth extends Vue { }
     margin-left: 28%;
     margin-right: 25%;
 }
+
+
 </style>
