@@ -1,7 +1,15 @@
 <template>
-    <div>
-        <h3>Your websites</h3>
-        <button class="btn btn-primary" @click="fetch_websites">Get Websites</button>
+    <div class="websites">
+        <table>
+            <tr>
+                <td>
+                    <h3>Your websites</h3>
+                </td>
+                <td>
+                    <button class="btn btn-primary right" @click="fetch_websites">Get Websites</button>
+                </td>
+            </tr>
+        </table>
         <table class="wtable">
             <tr class="wtr">
                 <th class="wname">Website Name</th>
@@ -11,7 +19,7 @@
             <tr class="tr" v-for="ele in websites_country">
                 <td class="wname" v-html="ele.name"></td>
                 <td class="wemail" v-html="ele.email"></td>
-                <td class="wurl"><a href="" v-html="ele.url"></a></td>
+                <td class="wurl"><a href="{{ ele.url }}" v-html="ele.url"></a></td>
             </tr>
         </table>
     </div>
@@ -111,6 +119,14 @@ export default class websites extends Vue { }
 </script>
 
 <style>
+.websites {
+    padding: 20px;
+    margin: 3%;
+    margin-top: -20%;
+}
+.websites h3 {
+    text-align: left;
+}
 
 .btn-primary {
     color: #44aaee;

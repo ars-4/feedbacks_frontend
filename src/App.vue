@@ -1,4 +1,4 @@
-<template>
+<template class="backgroundVid">
   <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
   <div id="nav">
     <router-link @click="check_user_login" to="/">Home</router-link> |
