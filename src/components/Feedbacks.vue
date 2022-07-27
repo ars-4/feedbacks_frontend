@@ -2,7 +2,9 @@
     <div class="feedbacks">
         <h2>Feedbacks List</h2>
         <input v-model="websitename" placeholder="website name">
-        <button @click="get_feedbacks">Search</button>
+        <br>
+        <button class="btn btn-primary" @click="get_feedbacks">Search</button>
+        <br>
         <div class="feedbackscard" v-for="obj in feedbacks_list">
             <p>{{ obj.name }}</p>
             <p>{{ obj.email }}</p>
@@ -52,7 +54,7 @@
 
             get_feedbacks: function() {
                 let tempo = this.websitename;
-                
+                this.feedbacks_list = []
                 let feedbacks_url = "https://feedbacks-backend.herokuapp.com/api/feedbacks/?website_name=" + tempo;
                 let refresh_token = localStorage.getItem('refresh');
                 let access_token = localStorage.getItem('access');
@@ -65,23 +67,23 @@
                     }
                 }).then(response=>{return response.json()}).then(data=>{
                     if(data['code']) {
+                        this.refresh_user_token()
                         this.get_feedbacks()
                     }
                     else {
                         let Obj = {
                             name: "",
                             email: "",
-                            feedback: "",
-                            website_name: ""
+                            feedback: ""
                         }
-                        for(let i = 0; i<= data.length; i++) {
+                        for(let i=0; i< data.length; i++) {
+                            this.feedbacks_list.push(Obj)
                             Obj.name = data[i]['name']
                             Obj.email = data[i]['email']
                             Obj.feedback = data[i]['feedback']
-                            Obj.website_name = String(data[i]['website'])
-                            this.feedbacks_list.push(Obj)
+                            console.log(Obj)
                         }
-                        console.log(Obj)
+                        console.log(data)
                     }
                 }).catch(error=>{throw new Error(error)})
             } // get_feedbacks
@@ -100,12 +102,22 @@
 <style>
 .feedbacks {
     border-left: 2px solid #c3c3c3;
-    padding: 20px;
+    padding: 10px;
     margin-top: -20%;
 }
 .feedbackscard {
-    background: #e3e3e3;
+    background: rgba(255, 255, 255, 0.5);
     color: #000;
+    padding: 5px;
+    margin-bottom: 1%;
+    border-radius: 4px;
+}
+input {
+    background-color: #fff;
+    border: none;
+    outline: none;
     padding: 10px;
+    margin: 2%;
+    border-radius: 4px;
 }
 </style>

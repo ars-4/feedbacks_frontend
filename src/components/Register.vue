@@ -118,7 +118,6 @@ export default class Register extends Vue { }
 }
 
 .Card {
-    background-color: #e3e3e3;
     padding: 20px;
     width: 250px;
     border-radius: 4px;

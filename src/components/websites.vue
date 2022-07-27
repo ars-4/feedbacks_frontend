@@ -122,21 +122,16 @@ export default class websites extends Vue { }
 .websites {
     padding: 20px;
     margin: 3%;
-    margin-top: -20%;
 }
 .websites h3 {
     text-align: left;
 }
 
-.btn-primary {
-    color: #44aaee;
-    border: none;
-    padding: 20px;
-    font-size: 16px;
-}
 
 .wtable {
     border: 3px solid #242424;
+    background: rgba(200, 200, 200, 0.5);
+    backdrop-filter: blur(5px);
 }
 
 th,
@@ -151,5 +146,10 @@ th,
 .wemail,
 .wurl {
     width: 250px;
+}
+.wurl a {
+    color: #42b983;
+    font-weight: bolder;
+    text-decoration: none;
 }
 </style>
