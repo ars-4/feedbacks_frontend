@@ -4,21 +4,20 @@
             <h1>Welcome back!</h1>
             <div>
                 <label for="usernamefield">Username</label>
-                <br>
+                <br><br>
                 <div class="formfield">
                     <input type="text" id="usernamefield" v-model="usernamefield">
                     <span></span>
                 </div>
-                <br><br><br>
+                <br><br>
                 <label for="userpasswordfield">Password</label>
-                <br>
+                <br><br>
                 <div class="formfield">
                     <input type="text" id="userpasswordfield" v-model="userpasswordfield">
                     <span></span>
                 </div>
                 <br>
                 <button class="btn btn-primary" @click="login_user">Login</button>
-                <a class="btn btn-secondary">Sign up</a>
                 <br>
             </div>
             <p><a style="color:green">{{ Success }}</a> <a style="color:red">{{ Error }}</a></p>
@@ -70,6 +69,8 @@ import { Vue, Options } from 'vue-class-component'
                         localStorage.setItem('userusername', innerData['user']);
                         localStorage.setItem('access', innerData['access']);
                         localStorage.setItem('refresh', innerData['refresh']);
+                        localStorage.setItem('userfullname', innerData['first_name'] + innerData['last_name']);
+                        localStorage.setItem('useremail', innerData['email']);
                         localStorage.setItem('status', 'loggedin');
                         this.Success = data['message'];
                         setTimeout(this.$router.push('/'), 2000);
@@ -106,7 +107,6 @@ export default class Login extends Vue { }
 }
 
 .formfield {
-    border: 1px solid #242424;
     padding: 4px;
     border-radius: 4px;
     background-color: #fff;

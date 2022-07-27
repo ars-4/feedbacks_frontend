@@ -1,27 +1,39 @@
 <template>
-    <div class="main" id="example">
+    <div class="main">
         <div class="Card">
-            <h1>Welcome back!</h1>
+            <h1>Join Us</h1>
             <div>
-                <label for="usernamefield">Username</label>
-                <br>
                 <div class="formfield">
-                    <input type="text" id="usernamefield" v-model="usernamefield">
-                    <span></span>
-                </div>
-                <br><br><br>
-                <label for="userpasswordfield">Password</label>
-                <br>
-                <div class="formfield">
-                    <input type="text" id="userpasswordfield" v-model="userpasswordfield">
+                    <input type="text" v-model="usernamefieldR" placeholder="Username">
                     <span></span>
                 </div>
                 <br>
-                <button class="btn btn-primary" @click="login_user">Login</button>
-                <a class="btn btn-secondary">Sign up</a>
+                <div class="formfield">
+                    <input type="text" v-model="userpasswordfieldR" placeholder="Password">
+                    <span></span>
+                </div>
+                <br>
+                <div class="formfield">
+                    <tr>
+                        <td>
+                            <input type="text" v-model="userfirstname" Size="10" placeholder="First Name">
+                        </td>
+                        <td>&nbsp;</td>
+                        <td>
+                            <input type="text" v-model="userlastname" Size="10" placeholder="Last Name">
+                        </td>
+                    </tr>
+                </div>
+                <br>
+                <div class="formfield">
+                    <input type="text" v-model="useremail" placeholder="Email">
+                    <span></span>
+                </div>
+                <br>
+                <button class="btn btn-primary" @click="register_user">SignUp</button>
                 <br>
             </div>
-            <p><a style="color:green">{{ Success }}</a> <a style="color:red">{{ Error }}</a></p>
+            <p><a style="color:green">{{ SuccessR }}</a> <a style="color:red">{{ ErrorR }}</a></p>
         </div>
     </div>
 </template>
@@ -32,19 +44,26 @@ import { Vue, Options } from 'vue-class-component'
 @Options({
     data() {
         return {
-            usernamefield: "",
-            userpasswordfield: "",
-            Success: "",
-            Error: ""
+            usernamefieldR: "",
+            userpasswordfieldR: "",
+            userfirstname: "",
+            userlastname: "",
+            useremail: "",
+            SuccessR: "",
+            ErrorR: ""
         };
     },
     methods: {
-        login_user: function () {
-            let url = "https://feedbacks-backend.herokuapp.com/api/auth/login/";
+        register_user: function () {
+            let url = "https://feedbacks-backend.herokuapp.com/api/auth/register/";
             let body = {
-                "username": this.usernamefield,
-                "password": this.userpasswordfield
+                "username": this.usernamefieldR,
+                "password": this.userpasswordfieldR,
+                "first_name": this.userfirstname,
+                "last_name": this.userlastname,
+                "email": this.useremail
             }
+            console.log(body)
 
             fetch(
                 url, {
@@ -63,15 +82,17 @@ import { Vue, Options } from 'vue-class-component'
                 data => {
                     if (data['error'] == 'true') {
                         localStorage.setItem('status', 'loggedout');
-                        this.Error = data['message'];
+                        this.ErrorR = data['message'];
                     }
                     else {
                         let innerData = data['data'];
-                        localStorage.setItem('userusername', innerData['user']);
+                        localStorage.setItem('userusername', innerData['username']);
                         localStorage.setItem('access', innerData['access']);
                         localStorage.setItem('refresh', innerData['refresh']);
+                        localStorage.setItem('userfullname', innerData['first_name'] + innerData['last_name']);
+                        localStorage.setItem('useremail', innerData['email']);
                         localStorage.setItem('status', 'loggedin');
-                        this.Success = data['message'];
+                        this.SuccessR = data['message'];
                         setTimeout(this.$router.push('/'), 2000);
                     }
                 }
@@ -85,9 +106,7 @@ import { Vue, Options } from 'vue-class-component'
 })
 
 
-
-
-export default class Login extends Vue { }
+export default class Register extends Vue { }
 
 </script>
 
@@ -106,7 +125,6 @@ export default class Login extends Vue { }
 }
 
 .formfield {
-    border: 1px solid #242424;
     padding: 4px;
     border-radius: 4px;
     background-color: #fff;
