@@ -8,9 +8,6 @@
         <td>
           <websites></websites>
         </td>
-        <td>
-          <Feedbacks></Feedbacks>
-        </td>
       </tr>
     </table>
   </div>
@@ -21,14 +18,12 @@ import { Options, Vue } from 'vue-class-component';
 import HelloWorld from '@/components/HelloWorld.vue';
 import websites from '@/components/websites.vue'; // @ is an alias to /src
 import UserInfo from '@/components/UserInfo.vue';
-import Feedbacks from '../components/Feedbacks.vue';
 
 @Options({
   components: {
     HelloWorld,
     websites,
-    UserInfo,
-    Feedbacks
+    UserInfo
   },
 })
 export default class Home extends Vue {}
