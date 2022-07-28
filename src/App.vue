@@ -6,6 +6,9 @@
     <router-link @click="check_user_logout" to="/logout">Logout</router-link>
   </div>
   <router-view />
+  <div class="footer">
+    Made with <a href="https://vuejs.org/">Vue JS</a> and <a href="https://djangoproject.com/">Django</a>
+  </div>
 </template>
 
 <script>
