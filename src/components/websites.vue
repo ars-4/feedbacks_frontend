@@ -5,6 +5,10 @@
                 <td class="heading">
                     <h3>Your websites</h3>
                 </td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
                 <td>
                     <button class="btn btn-primary right" @click="fetch_websites">Get Websites</button>
                     <button class="btn btn-primary right" @click="add_website">Add New</button>
