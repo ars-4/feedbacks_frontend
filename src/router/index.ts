@@ -24,6 +24,16 @@ const routes: Array<RouteRecordRaw> = [
     path: '/logout',
     name: 'Logout',
     component: () => import('../views/Logout.vue')
+  },
+  {
+    path: '/website',
+    name: 'WebsiteInfo',
+    component: () => import('../views/Web_Feed.vue')
+  },
+  {
+    path: '/website/create',
+    name: 'WebsiteCreation',
+    component: () => import('../views/Website/Create.vue')
   }
 ]
 

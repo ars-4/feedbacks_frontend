@@ -18,6 +18,8 @@
             localStorage.removeItem('access')
             localStorage.removeItem('refresh')
             localStorage.removeItem('userusername')
+            localStorage.removeItem('wid');
+            localStorage.removeItem('wname');
             localStorage.setItem('status', 'false')
             this.$router.push('/auth')
         }
@@ -37,11 +39,12 @@
 }
 
 .Card {
-    background-color: #c3c3c3;
+    background-color: rgba(0, 0, 0, 0.5);
     padding: 20px;
     width: 300px;
     text-align: center;
     border-radius: 4px;
+    backdrop-filter: blur(5px);
 }
 
 .btn {
@@ -56,7 +59,7 @@
 }
 
 .btn-primary {
-    background-color: #22aaff;
+    background-color: #42b983;
     color: #fff;
 }
 .btn-danger {

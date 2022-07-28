@@ -100,7 +100,7 @@ export default class Login extends Vue { }
 }
 
 .Card {
-    background-color: rgba(200, 200, 200, 0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(5px);
     padding: 20px;
     width: 250px;

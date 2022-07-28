@@ -47,6 +47,7 @@ body {
   overflow-x: hidden;
   background-image: url('~@/assets/AstronautAndJellyfish.jpg');
   background-size: cover;
+  background-attachment: fixed;
 }
 
 #app {
