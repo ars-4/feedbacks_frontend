@@ -36,6 +36,38 @@ import { Options, Vue } from 'vue-class-component';
 
     methods: {
 
+        refresh_user_token: async () => {
+            let refresh_url = "https://feedbacks-backend.herokuapp.com/api/auth/refresh/";
+            let refresh_token = localStorage.getItem('refresh');
+            let body = {
+                "refresh": refresh_token,
+            }
+            fetch(refresh_url, {
+                method: "POST",
+                headers: {
+                    'accept': 'application/json',
+                    'Content-Type': "application/json; charset=utf8",
+                },
+                body: JSON.stringify(body),
+            }).then(response => {
+                return response.json()
+            }).then(data => {
+                localStorage.removeItem('refresh');
+                localStorage.setItem('refresh', data['refresh']);
+                localStorage.removeItem('access');
+                localStorage.setItem('access', data['access']);
+                console.log("Create Website -> Changed Token");
+            }).then(
+                () => {
+                    setTimeout(() => {
+                        this.refresh_user_token
+                    }, 3000)
+                }
+            ).catch(error => {
+                console.error('Create Websites -> ' + error)
+            })
+        },
+
         add_website: function () {
 
             let send_url = "https://feedbacks-backend.herokuapp.com/api/websites/";
@@ -80,6 +112,10 @@ import { Options, Vue } from 'vue-class-component';
         } // add_website
 
     },//methods
+
+    beforeMount() {
+        this.refresh_user_token()
+    }
 })
 export default class Create extends Vue { }
 </script>
@@ -89,6 +125,7 @@ export default class Create extends Vue { }
     .websitecreate {
         margin-left: 25%;
         margin-right: 25%;
+        width: 50%;
     }
 
     .websitecreate .Card {

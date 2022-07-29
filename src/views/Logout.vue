@@ -10,11 +10,11 @@
 
 <script lang="ts">
 
-    import {Vue, Options} from 'vue-class-component'
+import { Vue, Options } from 'vue-class-component'
 
-    @Options({
-      methods: {
-        logout_user: function() {
+@Options({
+    methods: {
+        logout_user: function () {
             localStorage.removeItem('access')
             localStorage.removeItem('refresh')
             localStorage.removeItem('userusername')
@@ -22,11 +22,23 @@
             localStorage.removeItem('wname');
             localStorage.setItem('status', 'false')
             this.$router.push('/auth')
-        }
-      }  
-    })
+        },
+        check_user_logout: function () {
+            let status = localStorage.getItem('status');
+            if (status == 'loggedin') {
+                this.$router.push('/logout');
+            }
+            else {
+                this.$router.push('/auth');
+            }
+        },
+    },
+    beforeMount() {
+        this.check_user_logout()
+    }
+})
 
-    export default class Logout extends Vue { }
+export default class Logout extends Vue { }
 
 </script>
 
@@ -62,9 +74,9 @@
     background-color: #42b983;
     color: #fff;
 }
+
 .btn-danger {
     background: #cc1211;
     color: #fff;
 }
-
 </style>
