@@ -11,7 +11,7 @@
   </div>
 </template>
 
-<script>
+<!-- <script>
 
 import { Options, Vue } from 'vue-class-component'
 
@@ -43,7 +43,7 @@ import { Options, Vue } from 'vue-class-component'
 
 export default class App extends Vue { }
 
-</script>
+</script> -->
 
 <style>
 body {
@@ -82,5 +82,19 @@ body {
   font-weight: bolder;
   padding: 12px !important;
   cursor: pointer;
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #000;
+  padding: 10px;
+  margin-left: -2%;
+  font-size: 12px;
+}
+.footer a {
+  color: #42b983;
+  text-decoration: none;
+  font-weight: bolder;
 }
 </style>

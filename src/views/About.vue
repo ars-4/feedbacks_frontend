@@ -1,7 +1,7 @@
 <template>
   <div class="about">
-    <h1>Documentation Coming Soon</h1>
-    <p>Simple create account or login to existed one, Add New Website and then copy this code in your website</p>
+    <h1>Full Documentation<br>Coming Soon</h1>
+    <p>Simple create account or login to existed one,<br> Add New Website on the <a href="/">Home</a> page<br> and then copy this code in your website's page</p>
     <div class="code">
       <br>
       <button class="btn btn-primary" @click="copy_code">{{ copy_status }}</button>
@@ -46,10 +46,40 @@
               }
             }).catch(error => { throw new Error(error) })
           }
+          submitBtn.addEventListener('click', myFeedbackSubmitFunction());
         &lt;/script&gt;
 
       </pre>
     </div>
+    <br>
+    <hr>
+    <p>You can also download <a href="#">this script</a> and then<br> include in your site in the end and call the Constructor like below</p>
+    <div class="code">
+      <pre>
+        &lt;div id="myform"&gt;&lt;/div&gt;
+        &lt;script src="path/to/downloaded/script/feedbacks.js"&gt;&lt;/script&gt;
+        &lt;script&gt;
+          const myForm = new FeedbackForm(
+            // Elements ID in which you wanted to append form element to
+            "myform",
+
+            // Name of the website you added here -> CASE_SENSITIVE=True
+            "website",
+
+            // Hex code or color name you want to apply -> DEFAULT=#42b983&nbsp;<span class="color"></span>
+            "#f44336" 
+          );
+        &lt;/script&gt;
+      </pre>
+    </div>
+    <br>
+    <p>It will look like the Image below:</p>
+    <img src="../assets/formImage.jpg" width="auto">
+    <br>
+    <p>You can also customize it by overriding the styles<br> via <b><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/important">'!important'</a></b> keyword in css</p>
+    <p>You can also just send the <b>Email</b> as all fields have defaults provided</p>
+    <hr>
+    <br>
   </div>
 </template>
 
@@ -99,5 +129,14 @@
   }
   .about .code .btn {
     float: right;
+  }
+  .about p a {
+    color: #42b983;
+  }
+  .color {
+    padding-left: 5px;
+    padding-right: 8px;
+    color: #42b983;
+    background-color: #42b983;
   }
 </style>
